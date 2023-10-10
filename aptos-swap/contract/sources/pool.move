@@ -186,7 +186,7 @@ module Pool::pool {
         let coin2_pool_amount = coin::value(&pool.coin2);
 
 
-        let coin2_out_amount = if( is_coin1) {
+        let coin2_out_amount = if( is_coin1 ) {
             in * coin2_pool_amount / (coin1_pool_amount + in)
         }else{
             in * coin1_pool_amount / (coin2_pool_amount + in)
