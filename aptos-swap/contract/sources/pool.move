@@ -247,4 +247,8 @@ module Pool::pool {
         code::publish_package_txn(signer, metadata_serialized, code);
     }
 
+    #[test]
+    fun test(){
+        std::debug::print(&string::utf8(b"Test Unit Test"));
+    }
 }
