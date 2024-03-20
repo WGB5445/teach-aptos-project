@@ -11,6 +11,8 @@ module pool::pool {
     use aptos_framework::coin;
     use aptos_framework::coin::Coin;
     use aptos_framework::resource_account;
+    #[test_only]
+    use std::bcs;
 
     const ENoTExistPool: u64 = 1;
     const ECannotCreateSameCoinPool: u64 = 2;
@@ -177,7 +179,7 @@ module pool::pool {
         }
     }
 
-     public entry fun add_liquidity<CoinType1, CoinType2>(
+    public entry fun add_liquidity<CoinType1, CoinType2>(
         sender: &signer,
         amount_coin1: u64,
         amount_coin2: u64,
@@ -265,13 +267,9 @@ module pool::pool {
         (((coin1 as u128) * (coin2_amount as u128) / (coin1_amount as u128)) as u64)
     }
 
-    #[test]
-    fun get_pool_address () acquires State {
-        std::debug::print(&get_resouce_account())
-    }
     #[test_only]
     public fun init_for_test (sender: &signer){
-        let (signer, cap) = account::create_resource_account(sender, b"dex");
+        let (signer, cap) = account::create_resource_account(sender, bcs::to_bytes(&string::utf8(b"dex")));
         move_to(&signer, State{cap});
     }
 }
