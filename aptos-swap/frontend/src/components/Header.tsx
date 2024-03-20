@@ -10,8 +10,8 @@ export default function Header() {
                 <Link to="/" className="link">
                     <div className="headerItem">Swap</div>
                 </Link>
-                <Link to="/tokens" className="link">
-                    <div className="headerItem">Tokens</div>
+                <Link to="/faucet" className="link">
+                    <div className="headerItem">Faucet</div>
                 </Link>
             </div>
             <div className="rightH">

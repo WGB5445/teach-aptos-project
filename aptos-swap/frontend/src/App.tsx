@@ -1,7 +1,8 @@
 import "./App.css";
 import Header from "./components/Header";
 import { Routes, Route } from "react-router-dom";
-import Swap from "./components/Swap";
+import Swap from "./components/Swap"; 
+import { Faucet } from "./components/Faucet";
 function App() {
 
   return (
@@ -15,6 +16,12 @@ function App() {
               path="/"
               element={
                 <Swap />
+              }
+            />
+            <Route
+              path="/faucet"
+              element={
+                <Faucet />
               }
             />
           </Routes>

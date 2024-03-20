@@ -11,30 +11,30 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.2.6",
-    "@aptos-labs/wallet-adapter-ant-design": "^1.2.5",
-    "@aptos-labs/wallet-adapter-react": "^1.3.2",
-    "antd": "^5.9.4",
-    "aptos": "^1.20.0",
-    "petra-plugin-wallet-adapter": "^0.3.0",
+    "@ant-design/icons": "^5.3.4",
+    "@aptos-labs/wallet-adapter-ant-design": "^2.0.0",
+    "@aptos-labs/wallet-adapter-react": "^2.1.8",
+    "antd": "^5.15.3",
+    "aptos": "^1.21.0",
+    "petra-plugin-wallet-adapter": "^0.4.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.16.0",
-    "viem": "^1.16.0"
+    "react-router-dom": "^6.22.3",
+    "viem": "^2.8.14"
   },
   "devDependencies": {
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "@vitejs/plugin-react-swc": "^3.3.2",
-    "eslint": "^8.51.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
+    "@types/react": "^18.2.67",
+    "@types/react-dom": "^18.2.22",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
+    "@vitejs/plugin-react-swc": "^3.6.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
-    "prettier": "^3.0.3",
-    "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.2",
+    "vite": "^5.2.0"
   }
 }

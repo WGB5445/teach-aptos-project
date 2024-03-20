@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import tokenList from "../assets/tokenList.json";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
-
+const contract = "0xc049f30b2e38984c914b70bf5e2f8d4d281773ef6b561339ae842560f4fa47b2"
 const porvider = new Provider(Network.TESTNET);
 function Swap() {
   const [messageApi, contextHolder] = message.useMessage();
@@ -26,13 +26,14 @@ function Swap() {
   const [tokenTwoPool, setTokenTwoPool] = useState("0");
 
   const { connected: isConnected, signAndSubmitTransaction } = useWallet();
+ 
 
   function getTokenPool(tokenOneType: string, tokenTwoType: string) {
     setTokenOnePool("0");
     setTokenTwoPool("0");
     porvider
       .view({
-        function: "0xde5f3cb556eb2923d4aed5a427d2992fa31d9bcf9454472533b2f12cec8187af::pool::get_liqidity",
+        function: `${contract}::pool::get_liqidity`,
         type_arguments: [tokenOneType, tokenTwoType],
         arguments: [],
       })
@@ -232,24 +233,23 @@ function Swap() {
             //send
             setIsLoading(true);
             let token_one_amount = parseUnits(parseFloat(tokenOneAmount).toString(), tokenOne.decimals);
+  console.log(formatUnits(
+    (BigInt(tokenTwoPool) *
+      BigInt(token_one_amount)) /
+    (BigInt(tokenOnePool) +
+      BigInt(token_one_amount)) * BigInt(1000 - 5) / BigInt(1000),
+    tokenTwo.decimals,
+  ).toString())
             signAndSubmitTransaction(
               {
-                function: "0xde5f3cb556eb2923d4aed5a427d2992fa31d9bcf9454472533b2f12cec8187af::pool::swap",
-                type_arguments: [
-                  tokenOne.address,
-                  tokenTwo.address
-                ],
-                arguments: [
-                  token_one_amount.toString(),
-                  formatUnits(
-                    (BigInt(tokenTwoPool) *
-                      BigInt(token_one_amount)) /
-                    (BigInt(tokenOnePool) +
-                      BigInt(token_one_amount)) * BigInt(1000 - 5) / BigInt(1000),
-                    tokenTwo.decimals,
-                  ).toString(),
-                ],
-                type: "entry_function"
+                // @ts-ignore
+                data: {
+                  function: `${contract}::pool::swap`,
+                  typeArguments: [tokenOne.address,
+                    tokenTwo.address],
+                  functionArguments: [token_one_amount.toString(),
+                    0,],  
+                },
               }
             ).then((txn) => {
               console.log(txn)

@@ -13,9 +13,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <AptosWalletAdapterProvider
       plugins={wallets}
       autoConnect={true}
-      onError={(error) => {
-        console.log("error", error);
-      }}
     >
       <BrowserRouter>
         <App />

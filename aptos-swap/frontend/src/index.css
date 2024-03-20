@@ -8,10 +8,7 @@ body {
   height: 100vh;
   width: 100vw;
   background-color: rgb(25, 33, 52) !important;
-  background: rgb(25, 33, 52);
-  background: linear-gradient(180deg,
-      rgb(175, 46, 173) 28%,
-      rgb(101, 4, 75) 75%);
+  background: rgb(25, 33, 52); 
   color: white;
 }
 
