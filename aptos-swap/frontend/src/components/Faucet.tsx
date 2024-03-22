@@ -1,4 +1,4 @@
-import { useWallet ,  InputTransactionData,} from "@aptos-labs/wallet-adapter-react";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 const faucet_contract = "0x0629b1b00b749a903909aab5ccd68a453b874cce963dffce03e38e318bf348b6";
 let  faucet_map = [
