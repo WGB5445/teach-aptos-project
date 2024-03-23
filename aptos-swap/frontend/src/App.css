@@ -21,7 +21,6 @@ header {
   width: 20px;
   height: 20px;
   padding-right: 10px;
-
 }
 
 .leftH {
@@ -53,10 +52,9 @@ header {
   cursor: pointer;
 }
 
-
 .connectButton:hover {
   cursor: pointer;
-  color: #3b4874
+  color: #3b4874;
 }
 
 .mainWindow {
@@ -72,7 +70,7 @@ header {
 
 .tradeBox {
   width: 400px;
-  background-color: #0E111B;
+  background-color: #0e111b;
   border: 2px solid #21273a;
   min-height: 300px;
   border-radius: 15px;
@@ -83,7 +81,6 @@ header {
   padding-left: 30px;
   padding-right: 30px;
 }
-
 
 .tradeBoxHeader {
   display: flex;
@@ -114,10 +111,10 @@ header {
   position: absolute;
   top: 86px;
   left: 180px;
-  color: #5F6783;
-  border: 3px solid #0E111B;
+  color: #5f6783;
+  border: 3px solid #0e111b;
   font-size: 12px;
-  transition: 0.3s
+  transition: 0.3s;
 }
 
 .dollarAmount {
@@ -125,7 +122,7 @@ header {
   top: 75px;
   left: 14px;
   font-size: 10px;
-  color: #5F6783;
+  color: #5f6783;
 }
 
 .switchButton:hover {
@@ -193,7 +190,7 @@ header {
   height: 55px;
   font-size: 20px;
   border-radius: 12px;
-  color: #5981F3;
+  color: #5981f3;
   font-weight: bold;
   transition: 0.3s;
   margin-bottom: 30px;
@@ -213,7 +210,7 @@ header {
 
 .swapButton:hover {
   cursor: pointer;
-  background-color: #3b4874
+  background-color: #3b4874;
 }
 
 .tokenLogo {
@@ -227,7 +224,7 @@ header {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px
+  gap: 10px;
 }
 
 .tokenChoice {

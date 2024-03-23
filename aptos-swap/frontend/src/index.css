@@ -1,14 +1,14 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
   width: 100vw;
   background-color: rgb(25, 33, 52) !important;
-  background: rgb(25, 33, 52); 
+  background: rgb(25, 33, 52);
   color: white;
 }
 
@@ -102,7 +102,7 @@ body {
   padding-right: 20px !important;
   padding-left: 20px !important;
   border-radius: 100px !important;
-  color: #5981F3 !important;
+  color: #5981f3 !important;
   font-weight: bold !important;
   transition: 0.3s !important;
 }
