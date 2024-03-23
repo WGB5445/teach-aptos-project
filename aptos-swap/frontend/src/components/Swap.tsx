@@ -27,7 +27,7 @@ function Swap() {
   const [tokenOnePool, setTokenOnePool] = useState("0");
   const [tokenTwoPool, setTokenTwoPool] = useState("0");
 
-  const { connected: isConnected, signAndSubmitTransaction } = useWallet();
+  const { connected: isConnected, submitTransaction, signTransaction, account } = useWallet();
  
 
   function getTokenPool(tokenOneType: MoveStructId, tokenTwoType: MoveStructId) {
@@ -231,14 +231,14 @@ function Swap() {
         <button
           className="swapButton"
           disabled={tokenOneAmount == "0" || !isConnected}
-          onClick={() => {
+          onClick={async () => {
             //send
             setIsLoading(true);
             let token_one_amount = parseUnits(parseFloat(tokenOneAmount).toString(), tokenOne.decimals);
  
-            signAndSubmitTransaction(
+            let txn_wait_sign = await aptos.transaction.build.simple(
               {
-                // @ts-ignore
+                sender: account?.address || "",
                 data: {
                   function: `${contract}::pool::swap`,
                   typeArguments: [tokenOne.address,
@@ -247,10 +247,19 @@ function Swap() {
                     0,],  
                 },
               }
-            ).then((txn) => {
-              console.log(txn)
+            )
+            
+            let txn_with_sign = await signTransaction(txn_wait_sign);
 
-              aptos.waitForTransaction(txn.hash).then(() => {
+            submitTransaction(
+              {
+                transaction: txn_wait_sign , 
+                senderAuthenticator: txn_with_sign
+              }
+            ).then((txn)=>{
+              aptos.waitForTransaction({
+                transactionHash: txn.hash
+              }).then(() => {
                 setIsSuccess(true)
               }).catch(() => {
                 setIsError(true)
