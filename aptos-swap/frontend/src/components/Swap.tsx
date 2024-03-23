@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { Input, Modal, message } from "antd";
-import { Provider, Network } from "aptos";
+import { Input, Modal, message } from "antd"; 
 import { formatUnits, parseUnits } from "viem";
 import {
   ArrowDownOutlined,
@@ -8,8 +7,11 @@ import {
 } from "@ant-design/icons";
 import tokenList from "../assets/tokenList.json";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { Aptos, AptosConfig, MoveStructId, Network } from "@aptos-labs/ts-sdk";
 const contract = "0xc049f30b2e38984c914b70bf5e2f8d4d281773ef6b561339ae842560f4fa47b2"
-const porvider = new Provider(Network.TESTNET);
+ 
+const config = new AptosConfig({ network: Network.TESTNET });  
+const aptos = new Aptos(config);
 function Swap() {
   const [messageApi, contextHolder] = message.useMessage();
   // const [slippage, setSlippage] = useState(2.5);
@@ -28,15 +30,15 @@ function Swap() {
   const { connected: isConnected, signAndSubmitTransaction } = useWallet();
  
 
-  function getTokenPool(tokenOneType: string, tokenTwoType: string) {
+  function getTokenPool(tokenOneType: MoveStructId, tokenTwoType: MoveStructId) {
     setTokenOnePool("0");
     setTokenTwoPool("0");
-    porvider
-      .view({
+    aptos
+      .view({payload: {
         function: `${contract}::pool::get_liqidity`,
-        type_arguments: [tokenOneType, tokenTwoType],
-        arguments: [],
-      })
+        typeArguments: [tokenOneType, tokenTwoType],
+        functionArguments: [],
+      }})
       .then((data) => {
         // @ts-ignore
         setTokenOnePool(data[0])
@@ -79,7 +81,7 @@ function Swap() {
     const two = tokenTwo;
     setTokenOne(two);
     setTokenTwo(one);
-    getTokenPool(tokenOne.address, tokenTwo.address);
+    getTokenPool(tokenOne.address as MoveStructId, tokenTwo.address as MoveStructId);
   }
 
   function openModal(index: number) {
@@ -92,16 +94,16 @@ function Swap() {
     setTokenTwoAmount("0");
     if (changeToken === 1) {
       setTokenOne(tokenList[index]);
-      getTokenPool(tokenList[index].address, tokenTwo.address);
+      getTokenPool(tokenList[index].address as MoveStructId, tokenTwo.address as MoveStructId);
     } else {
       setTokenTwo(tokenList[index]);
-      getTokenPool(tokenOne.address, tokenList[index].address);
+      getTokenPool(tokenOne.address as MoveStructId, tokenList[index].address as MoveStructId);
     }
     setIsOpen(false);
   }
 
   useEffect(() => {
-    getTokenPool(tokenList[0].address, tokenList[1].address);
+    getTokenPool(tokenList[0].address as MoveStructId, tokenList[1].address as MoveStructId);
   }, []);
 
   useEffect(() => {
@@ -233,13 +235,7 @@ function Swap() {
             //send
             setIsLoading(true);
             let token_one_amount = parseUnits(parseFloat(tokenOneAmount).toString(), tokenOne.decimals);
-  console.log(formatUnits(
-    (BigInt(tokenTwoPool) *
-      BigInt(token_one_amount)) /
-    (BigInt(tokenOnePool) +
-      BigInt(token_one_amount)) * BigInt(1000 - 5) / BigInt(1000),
-    tokenTwo.decimals,
-  ).toString())
+ 
             signAndSubmitTransaction(
               {
                 // @ts-ignore
@@ -254,17 +250,14 @@ function Swap() {
             ).then((txn) => {
               console.log(txn)
 
-              porvider.waitForTransactionWithResult(txn.hash, {
-                timeoutSecs: 20,
-                checkSuccess: true
-              }).then(() => {
+              aptos.waitForTransaction(txn.hash).then(() => {
                 setIsSuccess(true)
               }).catch(() => {
                 setIsError(true)
               }).finally(() => {
                 setTokenOneAmount("0");
                 setTokenTwoAmount("0");
-                getTokenPool(tokenOne.address, tokenTwo.address)
+                getTokenPool(tokenOne.address as MoveStructId, tokenTwo.address as MoveStructId)
               })
             })
           }}

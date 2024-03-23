@@ -12,10 +12,10 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.4",
+    "@aptos-labs/ts-sdk": "^1.10.0",
     "@aptos-labs/wallet-adapter-ant-design": "^2.0.0",
     "@aptos-labs/wallet-adapter-react": "^2.1.8",
     "antd": "^5.15.3",
-    "aptos": "^1.21.0",
     "petra-plugin-wallet-adapter": "^0.4.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
