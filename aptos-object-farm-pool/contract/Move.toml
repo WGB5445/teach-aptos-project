@@ -1,0 +1,16 @@
+[package]
+name = "farm_pool"
+version = "1.0.0"
+authors = []
+
+[addresses]
+farm_pool = "0x3512"
+
+[dev-addresses]
+
+[dependencies.AptosTokenObjects]
+git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "mainnet"
+subdir = "aptos-move/framework/aptos-token-objects"
+
+[dev-dependencies]
