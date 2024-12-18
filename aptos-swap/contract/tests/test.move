@@ -2,12 +2,15 @@
 module main::test {
     use std::signer;
     use std::string::utf8;
+    use aptos_framework::account;
     use aptos_framework::aptos_account;
     use aptos_framework::aptos_coin;
     use aptos_framework::aptos_coin::AptosCoin;
     use aptos_framework::coin;
     use pool::pool::Lp;
     use pool::pool;
+
+    const Deployer: address = @main;
 
     struct A {}
 
@@ -49,13 +52,16 @@ module main::test {
     }
 
     fun mint_to<T>(addr: address, amount: u64) acquires CoinStore {
-        aptos_account::deposit_coins(addr,coin::mint(amount, &borrow_global<CoinStore<T>>(@main).mint_cap)) ;
+        let coin = coin::mint(amount, &borrow_global<CoinStore<T>>(@main).mint_cap);
+        aptos_account::deposit_coins(addr, coin);
     }
 
 
 
-    #[test(deployer = @main, fx = @aptos_framework)]
-    fun test(deployer: &signer, fx: &signer) acquires CoinStore {
+    #[test]
+    fun test() acquires CoinStore {
+        let deployer = &account::create_account_for_test(Deployer);
+        let fx= &account::create_account_for_test(@aptos_framework);
 
         // Get  Aptos Coin
         let (burn_cap, mint_cap) = aptos_coin::initialize_for_test(fx);
@@ -98,8 +104,25 @@ module main::test {
     }
 
 
-    #[test(deployer = @main)]
-    fun test_add_liq(deployer: &signer) acquires CoinStore {
+    #[test]
+    fun test_add_liq() acquires CoinStore {
+        let deployer = &account::create_account_for_test(Deployer);
+        let fx= &account::create_account_for_test(@aptos_framework);
+
+        // Get  Aptos Coin
+        let (burn_cap, mint_cap) = aptos_coin::initialize_for_test(fx);
+
+        // Mint Aptos Coin and Transfer
+        aptos_account::deposit_coins(signer::address_of(deployer), coin::mint(
+            1000 * 10000_0000,
+            &mint_cap
+        ));
+
+        coin::destroy_burn_cap(burn_cap);
+        coin::destroy_mint_cap(mint_cap);
+
+        // Check Aptos Coin balance
+        assert!(coin::balance<AptosCoin>(signer::address_of(deployer)) == 1000 * 10000_0000 ,135);
         pool::init_for_test(deployer);
         init_coin(deployer);
         mint_to<A>(signer::address_of(deployer), 5000 * 100000000);

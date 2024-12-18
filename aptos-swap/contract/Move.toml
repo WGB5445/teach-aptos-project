@@ -10,8 +10,8 @@ pool = "0xc049f30b2e38984c914b70bf5e2f8d4d281773ef6b561339ae842560f4fa47b2"
 [dev-addresses]
 
 [dependencies.AptosFramework]
-git = "https://github.com/aptos-labs/aptos-core.git"
+git = "https://github.com/aptos-labs/aptos-framework.git"
 rev = "mainnet"
-subdir = "aptos-move/framework/aptos-framework"
+subdir = "aptos-framework"
 
 [dev-dependencies]
