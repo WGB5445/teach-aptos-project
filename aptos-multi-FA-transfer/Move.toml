@@ -1,0 +1,17 @@
+[package]
+name = "aptos-multi-FA-transfer"
+version = "1.0.0"
+authors = []
+
+[addresses]
+contract = "_"
+
+[dev-addresses]
+contract = "0x94a97bb66ac7e5ebf939a566045ac33aeffb71ba8641aaffd61f1f52677f3a02"
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-framework.git"
+rev = "mainnet"
+subdir = "aptos-framework"
+
+[dev-dependencies]
